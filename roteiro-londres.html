@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roteiro de Londres — Memórias sem Fronteiras</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1E3A5F;
+    --navy-deep:#132845;
+    --cream:#E8DCCB;
+    --cream-soft:#F3EDE0;
+    --gold:#C8A96A;
+    --gold-deep:#A3803F;
+    --ink:#20334A;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .display{ font-family:'Fraunces', serif; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      radial-gradient(circle at 85% 8%, rgba(200,169,106,0.18), transparent 45%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:var(--cream);
+    padding: 48px 24px 72px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .pass-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border:1px solid rgba(232,220,203,0.35);
+    border-radius:999px;
+    padding:10px 18px;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--gold);
+    max-width:520px;
+    margin:0 auto 40px;
+  }
+
+  .pass-bar span:last-child{ color:rgba(232,220,203,0.6); }
+
+  .hero-inner{
+    max-width:560px;
+    margin:0 auto;
+    text-align:center;
+  }
+
+  .hero-eyebrow{
+    font-size:13px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:18px;
+  }
+
+  .hero h1{
+    font-size:clamp(38px, 9vw, 60px);
+    font-weight:600;
+    line-height:1.05;
+    margin-bottom:20px;
+  }
+
+  .hero h1 em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--gold);
+  }
+
+  .hero p{
+    font-size:16px;
+    line-height:1.6;
+    color:rgba(232,220,203,0.8);
+    max-width:420px;
+    margin:0 auto 36px;
+  }
+
+  .route-line{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    max-width:440px;
+    margin:0 auto;
+  }
+
+  .route-dot{ font-size:14px; color:var(--gold); white-space:nowrap; }
+
+  .route-dash{
+    flex:1;
+    height:1px;
+    background-image: repeating-linear-gradient(90deg, rgba(200,169,106,0.6) 0 6px, transparent 6px 12px);
+  }
+
+  .route-plane{ font-size:18px; }
+
+  /* ---------- STRIP STAT ---------- */
+  .stats{
+    background:var(--cream-soft);
+    border-bottom:1px solid rgba(30,58,95,0.1);
+    padding:22px 16px;
+  }
+  .stats-inner{
+    max-width:640px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-around;
+    text-align:center;
+  }
+  .stat-num{ font-family:'Fraunces', serif; font-size:26px; font-weight:600; color:var(--navy); }
+  .stat-label{ font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold-deep); margin-top:2px; }
+
+  /* ---------- ITINERARY ---------- */
+  .itinerary{
+    max-width:640px;
+    margin:0 auto;
+    padding:64px 20px 40px;
+  }
+
+  .section-label{
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+    text-align:center;
+    margin-bottom:10px;
+  }
+
+  .section-title{
+    font-family:'Fraunces', serif;
+    font-size:32px;
+    font-weight:600;
+    text-align:center;
+    color:var(--navy);
+    margin-bottom:48px;
+  }
+
+  .day-card{
+    display:flex;
+    gap:20px;
+    padding:26px 4px;
+    position:relative;
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+
+  .day-card.in-view{ opacity:1; transform:translateY(0); }
+
+  .day-card:not(:last-child){
+    border-bottom-image: none;
+  }
+
+  .day-card:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:1px;
+    background-image: repeating-linear-gradient(90deg, rgba(30,58,95,0.28) 0 5px, transparent 5px 11px);
+  }
+
+  .day-num{
+    flex:0 0 auto;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:var(--navy);
+    color:var(--cream);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:0.03em;
+    box-shadow:0 0 0 3px var(--cream-soft), 0 0 0 4px rgba(200,169,106,0.4);
+  }
+
+  .day-body{ flex:1; padding-top:4px; }
+
+  .day-title{
+    font-family:'Fraunces', serif;
+    font-size:19px;
+    font-weight:600;
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:6px;
+  }
+
+  .day-desc{
+    font-size:14px;
+    line-height:1.55;
+    color:#3d4f66;
+  }
+
+  .extra-tip{
+    margin-top:20px;
+    padding:26px 24px;
+    border:1.5px dashed var(--gold-deep);
+    border-radius:16px;
+    background:var(--cream-soft);
+    text-align:center;
+  }
+
+  .extra-tip-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+    margin-bottom:10px;
+  }
+
+  .extra-tip p{
+    font-size:15px;
+    line-height:1.6;
+    color:var(--navy);
+    max-width:420px;
+    margin:0 auto;
+  }
+
+  /* ---------- CLOSING ---------- */
+  .closing{
+    background:linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 100%);
+    color:var(--cream);
+    text-align:center;
+    padding:72px 24px 56px;
+  }
+
+  .closing-stamp{
+    width:74px; height:74px;
+    border:1.5px dashed var(--gold);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 28px;
+    font-size:26px;
+    transform:rotate(-8deg);
+  }
+
+  .closing h2{
+    font-family:'Fraunces', serif;
+    font-size:clamp(26px, 6vw, 34px);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+
+  .closing p{
+    color:rgba(232,220,203,0.75);
+    max-width:380px;
+    margin:0 auto 32px;
+    font-size:15px;
+    line-height:1.6;
+  }
+
+  .ig-button{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--gold);
+    color:var(--navy-deep);
+    text-decoration:none;
+    font-weight:600;
+    font-size:15px;
+    padding:14px 28px;
+    border-radius:999px;
+    transition:transform .2s ease, background .2s ease;
+  }
+
+  .ig-button:hover{ transform:translateY(-2px); background:#d6bb84; }
+
+  .footer-note{
+    margin-top:36px;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:rgba(232,220,203,0.4);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .day-card{ transition:none; opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Memórias sem Fronteiras</div>
+      <h1>12 dias em <em>Londres</em>, ponto a ponto</h1>
+      <p>O roteiro completo que fiz pros meus pais — de Stonehenge a Cambridge, com um dia inteiro livre pra explorar sem pressa.</p>
+      <div class="route-line">
+        <span class="route-dot mono">GRU</span>
+        <span class="route-dash"></span>
+        <span class="route-plane">✈</span>
+        <span class="route-dash"></span>
+        <span class="route-dot mono">LHR</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stats-inner">
+      <div>
+        <div class="stat-num">12</div>
+        <div class="stat-label">Dias</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="itinerary">
+    <div class="section-label">O roteiro</div>
+    <h2 class="section-title">Dia a dia em Londres</h2>
+
+    <div id="days"></div>
+
+    <div class="extra-tip">
+      <div class="extra-tip-label">Dica extra</div>
+      <p>Se você gosta de musical, se planeje pra ir em algum à noite — deixa a experiência em Londres ainda melhor.</p>
+    </div>
+  </main>
+
+  <footer class="closing">
+    <div class="closing-stamp">🧳</div>
+    <h2>Salvou o roteiro?</h2>
+    <p>Me siga pra mais roteiros completos, dicas de viagem e as próximas paradas da lista de 50 países.</p>
+    <a class="ig-button" href="https://www.instagram.com/memoriassemfronteiras/" target="_blank" rel="noopener">
+      Seguir @memoriassemfronteiras
+    </a>
+    <div class="footer-note">Feito com carinho para minha família — e agora, pra você também</div>
+  </footer>
+
+<script>
+  const days = [
+    { icon:"🇬🇧", title:"Chegada em Londres", desc:"Pouso, check-in e uma primeira caminhada leve pra se situar na cidade antes de começar o roteiro pesado." },
+    { icon:"🪨", title:"Stonehenge", desc:"Bate-volta para um dos monumentos mais antigos e misteriosos do mundo, no meio do campo inglês, com almoço em Salisbury." },
+    { icon:"🧙", title:"Harry Potter Studios", desc:"Passeio pelos bastidores da saga — quase obrigatório pra quem cresceu com os livros e filmes." },
+    { icon:"💂", title:"Troca da Guarda e Buckingham", desc:"Clássico londrino: chegue cedo pra garantir um bom lugar antes da cerimônia. Depois, caminhada pelo The Mall até Trafalgar Square, Westminster Abbey, Big Ben e London Eye." },
+    { icon:"🚂", title:"Kings Cross e Tower Bridge", desc:"Kings Cross cedinho pra ver o carrinho do Harry Potter. Metrô até London Bridge, almoço no Borough Market, passando pela Southwark Cathedral e The Shard. Caminhada até a London Bridge e depois até a Tower Bridge — atravesse e siga até a Tower of London. Subida no Sky Garden, uma volta pelo Leadenhall Market e fechamento na St Paul's Cathedral." },
+    { icon:"🍿", title:"Camden Market e Regent's Park", desc:"Cultura alternativa e feirinhas em Camden pela manhã. Passeio no Regent's Park à tarde e fechamento do dia com uma passada pela Abbey Road." },
+    { icon:"🛍️", title:"Covent Garden e Leicester Square", desc:"Covent Garden e o Market pela manhã, com parada no Seven Dials Market pra almoçar. Descida até Leicester Square e Piccadilly Circus, passando por China Town e Soho. Caminhada por Regent Street e Oxford Street, com paradas nas lojas M&M's, Lego, Hamleys e Fortnum & Mason." },
+    { icon:"🎨", title:"Passeio nos museus", desc:"British Museum, Tate, National Gallery ou Natural History — os principais são gratuitos e valem o dia inteiro." },
+    { icon:"🚣", title:"Cambridge", desc:"Passeio de um dia pela cidade universitária mais charmosa do Reino Unido." },
+    { icon:"🍃", title:"Hyde Park e Harrods", desc:"Passeio pelo Hyde Park e pelo Kensington Palace, com fechamento na Harrods. Caminhada por Notting Hill pra completar o dia." },
+    { icon:"🌳", title:"Greenwich", desc:"Meridiano de Greenwich, observatório e passeio pelo parque de Greenwich, com a melhor vista panorâmica do Tâmisa. Quem gosta de compras pode aproveitar o outlet na O2 Arena. Volta de Uber Boat até a London Bridge." },
+    { icon:"🎲", title:"Dia livre", desc:"Sem plano fixo de propósito — as melhores descobertas de viagem costumam ser as não planejadas." },
+  ];
+
+  const container = document.getElementById('days');
+  days.forEach((d, i) => {
+    const num = String(i + 1).padStart(2, '0');
+    const el = document.createElement('div');
+    el.className = 'day-card';
+    el.innerHTML = `
+      <div class="day-num">DIA<br>${num}</div>
+      <div class="day-body">
+        <div class="day-title">${d.icon} ${d.title}</div>
+        <div class="day-desc">${d.desc}</div>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.day-card').forEach(card => observer.observe(card));
+</script>
+
+</body>
+</html>

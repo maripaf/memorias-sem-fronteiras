@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memórias sem Fronteiras | Mariana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1E3A5F;
+    --navy-deep:#132845;
+    --cream:#E8DCCB;
+    --cream-soft:#F3EDE0;
+    --gold:#C8A96A;
+    --gold-deep:#A3803F;
+    --ink:#20334A;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(200,169,106,0.16), transparent 45%),
+      radial-gradient(circle at 90% 100%, rgba(200,169,106,0.10), transparent 40%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color:var(--cream);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    display:flex;
+    justify-content:center;
+    padding:56px 20px 40px;
+  }
+
+  .display{ font-family:'Fraunces', serif; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  .page{
+    width:100%;
+    max-width:440px;
+    text-align:center;
+  }
+
+  /* ---------- AVATAR ---------- */
+  .logo{
+    display:block;
+    width:100%;
+    max-width:300px;
+    height:auto;
+    margin:0 auto 18px;
+  }
+
+  .name{
+    font-family:'Fraunces', serif;
+    font-size:26px;
+    font-weight:600;
+    margin-bottom:8px;
+  }
+
+  .handle{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--gold);
+    margin-bottom:16px;
+  }
+
+  .tagline{
+    font-size:14px;
+    line-height:1.6;
+    color:rgba(232,220,203,0.72);
+    max-width:320px;
+    margin:0 auto 26px;
+  }
+
+  /* ---------- STATS ---------- */
+  .stats{
+    display:flex;
+    justify-content:center;
+    gap:36px;
+    margin-bottom:40px;
+  }
+  .stat-num{ font-family:'Fraunces', serif; font-size:22px; font-weight:600; color:var(--cream); }
+  .stat-label{ font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); margin-top:2px; }
+
+  /* ---------- LINKS ---------- */
+  .section-label{
+    font-size:11px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    text-align:left;
+    margin:0 0 14px 6px;
+  }
+
+  .links{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:36px;
+  }
+
+  .link-card{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    background:rgba(232,220,203,0.06);
+    border:1px solid rgba(200,169,106,0.35);
+    border-radius:16px;
+    padding:18px 20px;
+    text-decoration:none;
+    color:var(--cream);
+    text-align:left;
+    transition:transform .18s ease, background .18s ease, border-color .18s ease;
+  }
+
+  .link-card:hover{
+    transform:translateY(-2px);
+    background:rgba(232,220,203,0.11);
+    border-color:var(--gold);
+  }
+
+  .link-card.featured{
+    background:var(--gold);
+    border-color:var(--gold);
+    color:var(--navy-deep);
+  }
+  .link-card.featured:hover{ background:#d6bb84; }
+  .link-card.featured .link-sub{ color:rgba(30,58,95,0.7); }
+  .link-card.featured .link-arrow{ color:var(--navy-deep); }
+
+  .link-icon{
+    flex:0 0 auto;
+    width:44px; height:44px;
+    border-radius:12px;
+    background:rgba(30,58,95,0.5);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+  }
+  .link-card.featured .link-icon{ background:rgba(30,58,95,0.14); }
+
+  .link-text{ flex:1; }
+  .link-title{ font-weight:600; font-size:15px; margin-bottom:2px; }
+  .link-sub{ font-size:12px; color:rgba(232,220,203,0.6); }
+
+  .link-arrow{ font-size:16px; color:var(--gold); flex:0 0 auto; }
+
+  .link-card.disabled{
+    opacity:0.55;
+    pointer-events:none;
+    border-style:dashed;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .footer{
+    font-size:11px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:rgba(232,220,203,0.35);
+    margin-top:8px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="page">
+
+    <img class="logo" src="logo.png" alt="Memórias sem Fronteiras">
+    <div class="handle">@memoriassemfronteiras</div>
+    <div class="handle" style="color:rgba(232,220,203,0.6); font-size:12px; margin-top:-8px;">🇧🇷 Brasileira vivendo em 🇬🇧 Londres</div>
+    <p class="tagline">Inspirações e dicas de viagem, colecionando memórias pelo mundo — 50 países e contando 🌍</p>
+
+    <div class="stats">
+      <div>
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Países</div>
+      </div>
+      <div>
+        <div class="stat-num">🇧🇷🇬🇧</div>
+        <div class="stat-label">Base</div>
+      </div>
+      <div>
+        <div class="stat-num">🧳</div>
+        <div class="stat-label">Roteiros</div>
+      </div>
+    </div>
+
+    <div class="section-label">Roteiros</div>
+    <div class="links">
+      <a class="link-card featured" href="roteiro-londres.html">
+        <div class="link-icon">🇬🇧</div>
+        <div class="link-text">
+          <div class="link-title">Roteiro completo de Londres</div>
+          <div class="link-sub">12 dias, ponto a ponto</div>
+        </div>
+        <div class="link-arrow">→</div>
+      </a>
+
+      <div class="link-card disabled">
+        <div class="link-icon">🧭</div>
+        <div class="link-text">
+          <div class="link-title">Próximo roteiro em breve</div>
+          <div class="link-sub">Em construção</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Redes</div>
+    <div class="links">
+      <a class="link-card" href="https://www.instagram.com/memoriassemfronteiras/" target="_blank" rel="noopener">
+        <div class="link-icon">📸</div>
+        <div class="link-text">
+          <div class="link-title">Seguir no Instagram</div>
+          <div class="link-sub">@memoriassemfronteiras</div>
+        </div>
+        <div class="link-arrow">→</div>
+      </a>
+    </div>
+
+    <div class="footer">Memórias sem Fronteiras</div>
+
+  </div>
+
+</body>
+</html>
